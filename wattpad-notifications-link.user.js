@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name     			Wattpad Notifications
-// @version 			1
-// @grant    			none
-// @author 	 			rustykitty
-// @include  			https://www.wattpad.com/*
-// @homepageURL  		https://github.com/rustykitty/wattpad-notifications-link
-// @updateURL			https://github.com/rustykitty/wattpad-notifications-link/releases/latest/download/wattpad-notifications-link.user.js
-// @downloadURL			https://github.com/rustykitty/wattpad-notifications-link/releases/latest/download/wattpad-notifications-link.user.js
+// @name          Wattpad Notifications
+// @version       1
+// @grant         none
+// @author        rustykitty
+// @include       https://www.wattpad.com/*
+// @homepageURL   https://github.com/rustykitty/wattpad-notifications-link
+// @updateURL     https://github.com/rustykitty/wattpad-notifications-link/releases/latest/download/wattpad-notifications-link.user.js
+// @downloadURL   https://github.com/rustykitty/wattpad-notifications-link/releases/latest/download/wattpad-notifications-link.user.js
 // ==/UserScript==
 
 /*
@@ -18,11 +18,11 @@ The latter type (which I'll call type 2) has the HTML elements for the subitems 
 
 (function() {
   
-  	function parseURL(url) {
-    		return new URL(url, location.href).href; 
+    function parseURL(url) {
+        return new URL(url, location.href).href; 
     }
   
-		// https://stackoverflow.com/a/22289650
+    // https://stackoverflow.com/a/22289650
     function getLeafNodes(master) {
         var results = [];
         var children = master.childNodes;
@@ -47,25 +47,25 @@ The latter type (which I'll call type 2) has the HTML elements for the subitems 
 
     // could filter more precisely for something like 
     // `div (aria-labelledby="profile-dropdown") > ul > li > a` but this works
-  	function isUpdatesLink(element) {
-    		return element.nodeName.toLowerCase() === "a" && 
+    function isUpdatesLink(element) {
+        return element.nodeName.toLowerCase() === "a" && 
                 parseURL(element.getAttribute("href")) === parseURL("/feed") &&
                 element.textContent.trim() === "Updates"; 
     }
-  	function modifyUpdatesLink(link) {
-      	link.setAttribute("href", parseURL("/notifications"));
+    function modifyUpdatesLink(link) {
+        link.setAttribute("href", parseURL("/notifications"));
         link.textContent = "Notifications";
     }
   
- 		// In case it's already there, just shown or hidden depending
-  	const allNodes = getLeafNodes(document.body);
-  	const updatesLinks = allNodes.filter(isUpdatesLink);
-  	for (link of updatesLinks) {
-    		modifyUpdatesLink(link); 
+     // In case it's already there, just shown or hidden depending
+    const allNodes = getLeafNodes(document.body);
+    const updatesLinks = allNodes.filter(isUpdatesLink);
+    for (link of updatesLinks) {
+        modifyUpdatesLink(link); 
     }
  
-  	// https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
-  	/**
+    // https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+    /**
      * @param {Array<MutationRecord>} mutations
     */
     const callback = function(mutations, observer) {
@@ -74,13 +74,13 @@ The latter type (which I'll call type 2) has the HTML elements for the subitems 
                 return; // not a child element modification
             }
             // filter the list
-          	// note: Array.from is ES6
+            // note: Array.from is ES6
             const addedNodes = mutations.flatMap(mutation => Array.from(mutation.addedNodes));
-          	const addedLeaves = addedNodes.flatMap(node => getLeafNodes(node));
-          	const updatesLinks = addedLeaves.filter(isUpdatesLink);
+            const addedLeaves = addedNodes.flatMap(node => getLeafNodes(node));
+            const updatesLinks = addedLeaves.filter(isUpdatesLink);
             // there shouldn't be more than one but in case there is
             for (const link of updatesLinks) {
-            		link.setAttribute("href", parseURL("/notifications"));
+                link.setAttribute("href", parseURL("/notifications"));
                 link.textContent = "Notifications";
             }
         }
