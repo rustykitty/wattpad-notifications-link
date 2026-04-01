@@ -1,13 +1,16 @@
 // ==UserScript==
-// @name     Wattpad Notifications
-// @version  1
-// @grant    none
-// @author 	 rustykitty
-// @include  https://www.wattpad.com/*
+// @name     			Wattpad Notifications
+// @version 			1
+// @grant    			none
+// @author 	 			rustykitty
+// @include  			https://www.wattpad.com/*
+// @homepageURL  		https://github.com/rustykitty/wattpad-notifications-link
+// @updateURL			https://github.com/rustykitty/wattpad-notifications-link/releases/latest/download/wattpad-notifications-link.user.js
+// @downloadURL			https://github.com/rustykitty/wattpad-notifications-link/releases/latest/download/wattpad-notifications-link.user.js
 // ==/UserScript==
 
 /*
-Note: Wattpad is weird.
+Maintainer note: Wattpad is weird.
 On pages such as / and /notifications, it uses one kind of HTML structure, but on pages such as /user/RustyThunderClan, it uses a different type.
 The former type (which I'll call type 1) causes the HTML elements for a dropdown's subitems to appear when I open the dropdown. I use a MutationObserver for this.
 The latter type (which I'll call type 2) has the HTML elements for the subitems always there, but shown or hidden. I use a modification on the page load for this.
@@ -54,7 +57,7 @@ The latter type (which I'll call type 2) has the HTML elements for the subitems 
         link.textContent = "Notifications";
     }
   
- 	// In case it's already there, just shown or hidden depending
+ 		// In case it's already there, just shown or hidden depending
   	const allNodes = getLeafNodes(document.body);
   	const updatesLinks = allNodes.filter(isUpdatesLink);
   	for (link of updatesLinks) {
