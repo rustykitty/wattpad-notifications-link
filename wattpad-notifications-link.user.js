@@ -45,14 +45,16 @@ The latter type (which I'll call type 2) has the HTML elements for the subitems 
     // could filter more precisely for something like 
     // `div (aria-labelledby="profile-dropdown") > ul > li > a` but this works
   	function isUpdatesLink(element) {
-    		return element.nodeName.toLowerCase() === "a" && parseURL(element.getAttribute("href")) === parseURL("/feed")&& element.textContent.trim() === "Updates"; 
+    		return element.nodeName.toLowerCase() === "a" && 
+                parseURL(element.getAttribute("href")) === parseURL("/feed") &&
+                element.textContent.trim() === "Updates"; 
     }
   	function modifyUpdatesLink(link) {
       	link.setAttribute("href", parseURL("/notifications"));
         link.textContent = "Notifications";
     }
   
- 		// In case it's already there, just shown or hidden depending
+ 	// In case it's already there, just shown or hidden depending
   	const allNodes = getLeafNodes(document.body);
   	const updatesLinks = allNodes.filter(isUpdatesLink);
   	for (link of updatesLinks) {
