@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          Wattpad Notifications
-// @version       0.1
+// @version       0.1.1
 // @grant         none
 // @author        rustykitty
 // @include       https://www.wattpad.com/*
