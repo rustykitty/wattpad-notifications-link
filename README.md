@@ -2,6 +2,8 @@
 
 This userscript reverts the "Updates" link in the Wattpad profile dropdown to a "Notifications" link and changes it to go to the Notifications instead of Social Feed tab of updates.
 
+This script only works where Tampermonkey is supported. On mobile devices, you'll have to use a browser instead of the app to access Wattpad if you want to take advantage of this script.
+
 ## Installation
 
 Install [Tampermonkey](https://www.tampermonkey.net/), then go to the "Releases" sidebar on the right side of this page and click on the latest release. 
